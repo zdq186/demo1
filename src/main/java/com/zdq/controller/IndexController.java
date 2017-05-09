@@ -16,6 +16,7 @@ public class IndexController {
 	
 	@RequestMapping("/main")
 	public String main(){
+		System.out.println("12323453534534");
 		return "main";
 	}
 }
