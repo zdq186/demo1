@@ -5,6 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<h1>main.jsp123</h1>
+<h1>main.jsp</h1>
+<h1>${msg}</h1>
 </body>
 </html>

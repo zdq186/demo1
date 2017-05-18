@@ -1,0 +1,504 @@
+<configuration>
+	<property name="LOG_HOME" value="${supergw.logs.app.dir}" />
+	<property name="DEFAULT_PATTERN" value="%d %-5level [%X{ctxLogId}][%thread] %c{0} - %m%n" />
+	<property name="SERVICE_DIGEST_PATTERN" value="%d %-5level [%X{ctxLogId}][%thread][%X{ctxSrcSys}] - %msg%n" />
+	<property name="STAT_PATTERN" value="%d - %msg%n" />
+	<property name="NO_LOGID_PATTERN" value="%d %-5level [%thread] %c{0} - %m%n" />
+	<property name="LEVEL" value="${supergw.logs.level}" />
+	<property name="LEVEL_DIGEST" value="${supergw.logs.level_digest}" />
+	<property name="CHARSET" value="GBK" />
+	
+	<!-- Appenders -->
+	<!-- Appenders : Commons -->
+	<appender name="MISC" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/supergw-misc.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_HOME}/%d{yyyyMMdd}/supergw-misc.log</fileNamePattern>
+			<maxHistory>30</maxHistory>
+            		<cleanHistoryOnStart>true</cleanHistoryOnStart>
+		</rollingPolicy>
+		<encoder>
+			<pattern>${NO_LOGID_PATTERN}</pattern>
+			<charset>${CHARSET}</charset>
+		</encoder>
+	</appender>
+
+	<appender name="DEFAULT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	     <file>${LOG_HOME}/common-default.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_HOME}/%d{yyyyMMdd}/common-default.log</fileNamePattern>
+			<maxHistory>30</maxHistory>
+            		<cleanHistoryOnStart>true</cleanHistoryOnStart>
+		</rollingPolicy>
+		<encoder>
+			<pattern>${DEFAULT_PATTERN}</pattern>
+			<charset>${CHARSET}</charset>
+		</encoder>
+	</appender>
+	
+	<appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	    <file>${LOG_HOME}/common-error.log</file>
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>ERROR</level>
+		</filter>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_HOME}/%d{yyyyMMdd}/common-error.log</fileNamePattern>
+			<maxHistory>30</maxHistory>
+            		<cleanHistoryOnStart>true</cleanHistoryOnStart>
+		</rollingPolicy>  
+		<encoder>
+			<pattern>${DEFAULT_PATTERN}</pattern>
+			<charset>${CHARSET}</charset>
+		</encoder>
+	</appender>
+	
+	<!-- Appenders : Digest -->
+	<appender name="DAL-DIGEST" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	    <file>${LOG_HOME}/supergw-dal-digest.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_HOME}/%d{yyyyMMdd}/supergw-dal-digest.log</fileNamePattern>
+			<maxHistory>30</maxHistory>
+            		<cleanHistoryOnStart>true</cleanHistoryOnStart>
+		</rollingPolicy>  
+		<encoder>
+			<pattern>${NO_LOGID_PATTERN}</pattern>
+			<charset>${CHARSET}</charset>
+		</encoder>
+	</appender>
+	
+	<appender name="SERVICE-DIGEST" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	    <file>${LOG_HOME}/supergw-service-digest.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_HOME}/%d{yyyyMMdd}/supergw-service-digest.log</fileNamePattern>
+			<maxHistory>30</maxHistory>
+            		<cleanHistoryOnStart>true</cleanHistoryOnStart>
+		</rollingPolicy>
+		<encoder>
+			<pattern>${SERVICE_DIGEST_PATTERN}</pattern>
+			<charset>${CHARSET}</charset>
+		</encoder>
+	</appender>
+
+	<appender name="SAL-DIGEST" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	     <file>${LOG_HOME}/supergw-sal-digest.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_HOME}/%d{yyyyMMdd}/supergw-sal-digest.log</fileNamePattern>
+			<maxHistory>30</maxHistory>
+            		<cleanHistoryOnStart>true</cleanHistoryOnStart>
+		</rollingPolicy>  
+		<encoder>
+			<pattern>${DEFAULT_PATTERN}</pattern>
+			<charset>${CHARSET}</charset>
+		</encoder>
+	</appender>
+
+	<appender name="BUSINESS-DIGEST" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/supergw-biz-digest.log</file>		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_HOME}/%d{yyyyMMdd}/supergw-biz-digest.log</fileNamePattern>
+			<maxHistory>60</maxHistory>
+			<cleanHistoryOnStart>true</cleanHistoryOnStart>
+		</rollingPolicy>  
+		<encoder>
+			<pattern>${STAT_PATTERN}</pattern>
+			<charset>${CHARSET}</charset>
+		</encoder>
+	</appender>
+		
+	<appender name="PAGE-DIGEST" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	    <file>${LOG_HOME}/supergw-page-digest.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_HOME}/%d{yyyyMMdd}/supergw-page-digest.log</fileNamePattern>
+			<maxHistory>15</maxHistory>
+			<cleanHistoryOnStart>true</cleanHistoryOnStart>
+		</rollingPolicy>  
+		<encoder>
+			<pattern>${NO_LOGID_PATTERN}</pattern>
+			<charset>${CHARSET}</charset>
+		</encoder>
+	</appender>	
+
+	<!-- Appenders : Stat -->
+	<appender name="JVM-STAT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	    <file>${LOG_HOME}/stat/jvm-stat.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_HOME}/stat/jvm-stat.log.%d{yyyy-MM-dd}</fileNamePattern>
+			<maxHistory>15</maxHistory>
+			<cleanHistoryOnStart>true</cleanHistoryOnStart>
+		</rollingPolicy>  
+		<encoder>
+			<pattern>${STAT_PATTERN}</pattern>
+			<charset>${CHARSET}</charset>
+		</encoder>
+	</appender>
+	
+	<appender name="OS-STAT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	    <file>${LOG_HOME}/stat/os-stat.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_HOME}/stat/os-stat.log.%d{yyyy-MM-dd}</fileNamePattern>
+			<maxHistory>15</maxHistory>
+			<cleanHistoryOnStart>true</cleanHistoryOnStart>
+		</rollingPolicy>  
+		<encoder>
+			<pattern>${STAT_PATTERN}</pattern>
+			<charset>${CHARSET}</charset>
+		</encoder>
+	</appender>
+
+	<!-- Appenders: App Details -->
+	<appender name="DAL" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	    <file>${LOG_HOME}/supergw-dal.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_HOME}/%d{yyyyMMdd}/supergw-dal.log</fileNamePattern>
+			<maxHistory>15</maxHistory>
+			<cleanHistoryOnStart>true</cleanHistoryOnStart>
+		</rollingPolicy>
+		<encoder>
+			<pattern>${DEFAULT_PATTERN}</pattern>
+			<charset>${CHARSET}</charset>
+		</encoder>
+	</appender>
+	
+	<appender name="BIZ" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	    <file>${LOG_HOME}/supergw-biz.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_HOME}/%d{yyyyMMdd}/supergw-biz.log</fileNamePattern>
+			<maxHistory>60</maxHistory>
+			<cleanHistoryOnStart>true</cleanHistoryOnStart>
+		</rollingPolicy>
+		<encoder>
+			<pattern>${DEFAULT_PATTERN}</pattern>
+			<charset>${CHARSET}</charset>
+		</encoder>
+	</appender>
+
+	<appender name="WEB" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	    <file>${LOG_HOME}/supergw-web.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_HOME}/%d{yyyyMMdd}/supergw-web.log</fileNamePattern>
+			<maxHistory>15</maxHistory>
+			<cleanHistoryOnStart>true</cleanHistoryOnStart>
+		</rollingPolicy>
+		<encoder>
+			<pattern>${DEFAULT_PATTERN}</pattern>
+			<charset>${CHARSET}</charset>
+		</encoder>
+	</appender>
+
+	<appender name="SERVICE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	    <file>${LOG_HOME}/supergw-service.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_HOME}/%d{yyyyMMdd}/supergw-service.log</fileNamePattern>
+			<maxHistory>15</maxHistory>
+			<cleanHistoryOnStart>true</cleanHistoryOnStart>
+		</rollingPolicy>
+		<encoder>
+			<pattern>${DEFAULT_PATTERN}</pattern>
+			<charset>${CHARSET}</charset>
+		</encoder>
+	</appender>
+	
+	
+	<appender name="CACHE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	     <file>${LOG_HOME}/supergw-cache.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_HOME}/%d{yyyyMMdd}/supergw-cache.log</fileNamePattern>
+			<maxHistory>15</maxHistory>
+			<cleanHistoryOnStart>true</cleanHistoryOnStart>
+		</rollingPolicy>
+		<encoder>
+			<pattern>${NO_LOGID_PATTERN}</pattern>
+			<charset>${CHARSET}</charset>
+		</encoder>
+	</appender>
+	
+	
+	<appender name="PERF" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_HOME}/perf.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_HOME}/%d{yyyyMMdd}/perf.log</fileNamePattern>
+			<maxHistory>30</maxHistory>
+            		<cleanHistoryOnStart>true</cleanHistoryOnStart>
+		</rollingPolicy>
+		<encoder>
+			<pattern>${DEFAULT_PATTERN}</pattern>
+			<charset>${CHARSET}</charset>
+		</encoder>
+	</appender>
+	
+	
+	<appender name="SLA" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_HOME}/sla.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_HOME}/%d{yyyyMMdd}/sla.log</fileNamePattern>
+			<maxHistory>30</maxHistory>
+            		<cleanHistoryOnStart>true</cleanHistoryOnStart>
+		</rollingPolicy>
+		<encoder>
+			<pattern>${DEFAULT_PATTERN}</pattern>
+			<charset>${CHARSET}</charset>
+		</encoder>
+	</appender>
+	
+	
+	
+	 <appender name="supergw-message" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	    <file>${LOG_HOME}/supergw-message.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_HOME}/%d{yyyyMMdd}/supergw-message.log</fileNamePattern>
+			<maxHistory>15</maxHistory>
+			<cleanHistoryOnStart>true</cleanHistoryOnStart>
+		</rollingPolicy>
+		<encoder>
+			<pattern>${DEFAULT_PATTERN}</pattern>
+			<charset>${CHARSET}</charset>
+		</encoder>
+	</appender>
+	
+	 <appender name="supergw-script" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	    <file>${LOG_HOME}/supergw-script.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_HOME}/%d{yyyyMMdd}/supergw-script.log</fileNamePattern>
+			<maxHistory>15</maxHistory>
+			<cleanHistoryOnStart>true</cleanHistoryOnStart>
+		</rollingPolicy>
+		<encoder>
+			<pattern>${DEFAULT_PATTERN}</pattern>
+			<charset>${CHARSET}</charset>
+		</encoder>
+	</appender>
+	
+	 <appender name="console" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	     <file>${LOG_HOME}/supergw-console.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_HOME}/%d{yyyyMMdd}/supergw-console.log</fileNamePattern>
+			<maxHistory>15</maxHistory>
+			<cleanHistoryOnStart>true</cleanHistoryOnStart>
+		</rollingPolicy>
+		<encoder>
+			<pattern>${NO_LOGID_PATTERN}</pattern>
+			<charset>${CHARSET}</charset>
+		</encoder>
+	</appender>
+	 <appender name="COMMUNICATION" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	    <file>${LOG_HOME}/supergw-communication.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_HOME}/%d{yyyyMMdd}/supergw-communication.log</fileNamePattern>
+			<maxHistory>15</maxHistory>
+			<cleanHistoryOnStart>true</cleanHistoryOnStart>
+		</rollingPolicy>
+		<encoder>
+			<pattern>${DEFAULT_PATTERN}</pattern>
+			<charset>${CHARSET}</charset>
+		</encoder>
+	</appender>
+	
+ 	 <appender name="INTEGRATION" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	    <file>${LOG_HOME}/supergw-integration.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_HOME}/%d{yyyyMMdd}/supergw-integration.log</fileNamePattern>
+			<maxHistory>15</maxHistory>
+			<cleanHistoryOnStart>true</cleanHistoryOnStart>
+		</rollingPolicy>
+		<encoder>
+			<pattern>${DEFAULT_PATTERN}</pattern>
+			<charset>${CHARSET}</charset>
+		</encoder>
+	</appender>
+		<appender name="supergw-file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	    <file>${LOG_HOME}/supergw-file.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_HOME}/%d{yyyyMMdd}/supergw-file.log</fileNamePattern>
+			<maxHistory>15</maxHistory>
+			<cleanHistoryOnStart>true</cleanHistoryOnStart>
+		</rollingPolicy>
+		<encoder>
+			<pattern>${DEFAULT_PATTERN}</pattern>
+			<charset>${CHARSET}</charset>
+		</encoder>
+	</appender>
+
+	<appender name="supergw-limit-token" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	    <file>${LOG_HOME}/supergw-limit-token.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_HOME}/%d{yyyyMMdd}/supergw-limit-token.log</fileNamePattern>
+			<maxHistory>15</maxHistory>
+			<cleanHistoryOnStart>true</cleanHistoryOnStart>
+		</rollingPolicy>
+		<encoder>
+			<pattern>${DEFAULT_PATTERN}</pattern>
+			<charset>${CHARSET}</charset>
+		</encoder>
+	</appender>
+	
+	<appender name="supergw-bankdata-core" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	    <file>${LOG_HOME}/supergw-bankdata-core.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_HOME}/%d{yyyyMMdd}/supergw-bankdata-core.log</fileNamePattern>
+			<maxHistory>15</maxHistory>
+			<cleanHistoryOnStart>true</cleanHistoryOnStart>
+		</rollingPolicy>
+		<encoder>
+			<pattern>${DEFAULT_PATTERN}</pattern>
+			<charset>${CHARSET}</charset>
+		</encoder>
+	</appender>
+	<!-- Loggers -->
+
+	<!-- Loggers : Digest -->
+	<logger name="DAL-DIGEST-LOGGER" level="${LEVEL_DIGEST}" additivity="false">
+		<appender-ref ref="DAL-DIGEST" />
+		<appender-ref ref="ERROR" />
+	</logger>
+
+	<logger name="SERVICE-DIGEST-LOGGER" level="${LEVEL_DIGEST}" additivity="false">
+		<appender-ref ref="SERVICE-DIGEST" />
+		<appender-ref ref="ERROR" />
+	</logger>
+	
+	<logger name="SAL-DIGEST-LOGGER" level="${LEVEL_DIGEST}" additivity="false">
+		<appender-ref ref="SAL-DIGEST" />
+		<appender-ref ref="ERROR" />
+	</logger>
+
+	<logger name="BUSINESS-DIGEST-LOGGER" level="${LEVEL_DIGEST}" additivity="false">
+		<appender-ref ref="BUSINESS-DIGEST" />
+		<appender-ref ref="ERROR" />
+	</logger>
+	
+	<logger name="PAGE-DIGEST-LOGGER" level="${LEVEL_DIGEST}" additivity="false">
+		<appender-ref ref="PAGE-DIGEST" />
+		<appender-ref ref="ERROR" />
+	</logger>
+
+	<!-- Loggers : Stat -->
+	<logger name="JVM-STAT-LOGGER" level="${LEVEL_DIGEST}" additivity="false">
+		<appender-ref ref="JVM-STAT" />
+		<appender-ref ref="ERROR" />
+	</logger>
+
+	<logger name="OS-STAT-LOGGER" level="${LEVEL_DIGEST}" additivity="false">
+		<appender-ref ref="OS-STAT" />
+		<appender-ref ref="ERROR" />
+	</logger>
+
+	<!-- Loggers : App Details -->
+	<logger name="com.baifubao.supergw.dal" level="${LEVEL}" additivity="false">
+		<appender-ref ref="DAL" />
+	</logger>
+
+	<logger name="com.baifubao.supergw.biz" level="${LEVEL}" additivity="false">
+		<appender-ref ref="BIZ" />
+	</logger>
+	
+	 <logger name="supergw-CACHE" level="${LEVEL}" additivity="false">
+		<appender-ref ref="CACHE" />
+	</logger>
+	 <logger name="supergw-MESSAGE" level="${LEVEL}" additivity="false">
+		<appender-ref ref="supergw-message" />
+	</logger>
+	<logger name="com.baifubao.supergw.web" level="${LEVEL}" additivity="false">
+		<appender-ref ref="WEB" />
+	</logger>
+	<logger name="com.baifubao.supergw.common" level="${LEVEL}" additivity="false">
+		<appender-ref ref="DEFAULT" />
+	</logger>
+	<logger name="com.baifubao.supergw.communication" level="${LEVEL}" additivity="false">
+		<appender-ref ref="COMMUNICATION" />
+	</logger>
+	<logger name="com.baifubao.supergw.message" level="${LEVEL}" additivity="false">
+		<appender-ref ref="supergw-script" />
+	</logger>
+	<logger name="script" level="${LEVEL}" additivity="false">
+		<appender-ref ref="supergw-script" />
+	</logger>
+	 <logger name="com.baifubao.supergw.repo" level="${LEVEL}" additivity="false">
+		<appender-ref ref="CACHE" />
+	</logger>
+	<logger name="com.baifubao.supergw.console" level="${LEVEL}" additivity="false">
+		<appender-ref ref="console" />
+	</logger>
+	<logger name="com.baifubao.supergw.service" level="${LEVEL}" additivity="false">
+		<appender-ref ref="SERVICE" />
+	</logger>
+	<logger name="com.baifubao.supergw.service.integration" level="${LEVEL}" additivity="false">
+		<appender-ref ref="INTEGRATION" />
+	</logger>
+	<logger name="com.baifubao.supergw.file" level="${LEVEL}" additivity="false">
+		<appender-ref ref="supergw-file" />
+	</logger>
+	
+	
+	<!-- Loggers : Perf-->
+	<logger name="com.baifubao.superhero.util.common.profiler" level="${LEVEL}" additivity="false">
+		<appender-ref ref="PERF" />
+		<appender-ref ref="ERROR" />
+	</logger>
+
+	<!-- Loggers : Sla-->
+	<logger name="com.baifubao.superhero.util.sla" level="${LEVEL}" additivity="false">
+		<appender-ref ref="SLA" />
+		<appender-ref ref="ERROR" />
+	</logger>
+
+	<!-- Loggers : Misc -->
+	<logger name="com.alibaba.druid" level="${LEVEL}" additivity="false">
+		<appender-ref ref="DAL" />
+		<appender-ref ref="ERROR" />
+	</logger>
+	<!-- common-default much log -->
+	<logger name="org.apache.commons.httpclient" level="error" additivity="false">
+	    <appender-ref ref="ERROR" />
+	</logger>
+	
+	<logger name="druid.sql.DataSource" level="${LEVEL}" additivity="false">
+		<appender-ref ref="DAL" />
+		<appender-ref ref="ERROR" />
+	</logger>
+
+	<logger name="druid.sql.Connection" level="${LEVEL}" additivity="false">
+		<appender-ref ref="DAL" />
+		<appender-ref ref="ERROR" />
+	</logger>
+
+	<logger name="druid.sql.Statement" level="${LEVEL}" additivity="false">
+		<appender-ref ref="DAL" />
+		<appender-ref ref="ERROR" />
+	</logger>
+
+	<logger name="druid.sql.ResultSet" level="${LEVEL}" additivity="false">
+		<appender-ref ref="DAL" />
+		<appender-ref ref="ERROR" />
+	</logger>
+	
+	<logger name="org.apache.ibatis" level="${LEVEL}" additivity="false">
+		<appender-ref ref="DAL" />
+		<appender-ref ref="ERROR" />
+	</logger>
+
+	<logger name="org.mybatis" level="${LEVEL}" additivity="false">
+		<appender-ref ref="DAL" />
+		<appender-ref ref="ERROR" />
+	</logger>
+
+	<logger name="org.springframework" level="${LEVEL}" additivity="false">
+		<appender-ref ref="MISC" />
+		<appender-ref ref="ERROR" />
+	</logger>
+	
+	<logger name="supergw-ERROR" level="${LEVEL}" additivity="false">
+		<appender-ref ref="ERROR" />
+	</logger>
+
+	<logger name="supergw-LIMIT-TOKEN" level="${LEVEL}" additivity="false">
+		<appender-ref ref="supergw-limit-token" />
+	</logger>
+	
+	<logger name="supergw-bankdata-core" level="${LEVEL}" additivity="false">
+		<appender-ref ref="supergw-bankdata-core" />
+	</logger>
+	<!-- Loggers : Root Logger -->
+	<root level="${LEVEL}">
+		<appender-ref ref="DEFAULT" />
+		<appender-ref ref="ERROR" />
+	</root>
+</configuration>
